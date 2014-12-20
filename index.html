@@ -77,11 +77,11 @@ $(document).ready(function() {
 			$('#container').highcharts({
 		        title: {
 		            text: productCode[0],
-		            x: -20 //center
+		            x: -120 //center
 		        },
 		        subtitle: {
 		            text: marketName[0],
-		            x: -20
+		            x: -120
 		        },
 		        xAxis: {
 		            categories: tradDate,
@@ -90,40 +90,81 @@ $(document).ready(function() {
 		                step: 10
 		            }
 		        },
-		        yAxis: {
-		            title: {
-		                text: '元/公斤'
-		            },
-		            plotLines: [{
-		                value: 0,
-		                width: 1,
-		                color: '#808080'
-		            }]
-		        },
+		        yAxis:[{ // Primary yAxis
+            labels: {
+                format: '{value}元/公斤',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Temperature',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'Rainfall',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value} 公斤',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
 		        tooltip: {
-		            valueSuffix: '°C'
+		            shared: true
 		        },
 		        legend: {
+					//enabled: false
 		            layout: 'vertical',
-		            align: 'right',
-		            verticalAlign: 'middle',
-		            borderWidth: 0
+		            verticalAlign: 'top',
+		            align:'center',
+		            borderWidth: 0,
+		            floating: true
 		        },
 		        series: [{
+		        yAxis: 0,
 		            name: '上價',
-		            data: topPrice
+		            data: topPrice,
+		        	tooltip: {
+                valueSuffix: '元/公斤'
+            }
 		        }, {
+		        yAxis: 0,
 		            name: '中價',
-		            data: midPrice
+		            data: midPrice,
+		        	tooltip: {
+                valueSuffix: '元/公斤'
+            }
 		        }, {
+		        yAxis: 0,
 		            name: '下價',
-		            data: lowPrice
+		            data: lowPrice,
+		        	tooltip: {
+                valueSuffix: '元/公斤'
+            }
 		        }, {
+		        yAxis: 0,
 		            name: '平均價',
-		            data: averagePrice
+		            data: averagePrice,
+		        	tooltip: {
+                valueSuffix: '元/公斤'
+            }
 		        },{
+		        yAxis: 1,
 		        	name: '交易量',
-		        	data: tradeQuantity
+		        	data: tradeQuantity,
+		        	type: 'column',
+		        	tooltip: {
+                valueSuffix: '公斤'
+            }
 		        }]
 		    });
         }
